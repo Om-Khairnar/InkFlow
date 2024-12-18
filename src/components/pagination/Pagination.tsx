@@ -5,7 +5,12 @@ import Image from "next/image";
 const Navbar = () => {
   return (
     <div className={styles.container}>
-      pagination
+      <button className={styles.button}>
+        Previous
+      </button>
+      <button className={styles.button}>
+        Next
+      </button>
     </div>
   );
 };
