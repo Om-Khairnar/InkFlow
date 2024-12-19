@@ -1,0 +1,6 @@
+.env.local delete and tehn do the setup ok 
+
+after new setup
+https://dev.pitchme.ventures/auth/login
+
+npm run lint - check error of enlist 

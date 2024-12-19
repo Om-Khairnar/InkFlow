@@ -1,0 +1,217 @@
+here is code for put my data for profile page 
+
+
+
+"use client";
+
+import React, { useState, useEffect, useCallback } from "react";
+import fetch, { methodTypeEnum } from "@/services/fetch";
+import InvestorType from "@/interfaces/Investor.type";
+import handleError from "@/services/errorHandler";
+import Image from "next/image";
+import styles from "@/dashboard/profile/Profile.module.scss";
+import Card from "@/components/Card";
+import {
+  Col,
+  Dropdown,
+  Breadcrumb,
+  Nav,
+  Row,
+  Tab,
+  FormGroup,
+  Form,
+  Button,
+  CardBody,
+} from "react-bootstrap";
+import {
+  FaAddressCard,
+  FaTaxi,
+  FaFlag,
+  FaPhone,
+  FaEnvelope,
+  FaGlobe,
+} from "react-icons/fa";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+const Profile = () => {
+  const [user, setUser] = useState<InvestorType>({
+    firstname: "",
+    lastname: "",
+    phone: "",
+    email: "",
+  } as InvestorType);
+
+  const [formData, setFormData] = useState<InvestorType>({
+    firstname: "",
+    lastname: "",
+  }as InvestorType);
+
+  const getSelfData = useCallback(async () => {
+    try {
+      const { data: response } = await fetch({
+        url: `${API_BASE_URL}/investors/self`,
+        method: methodTypeEnum.get,
+      });
+      if (response?.data) {
+        setUser(response?.data);
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  }, []);
+
+  const saveSelfData = async () => {
+    try {
+      const updatedData = {
+        firstname: formData.firstname,
+        lastname: formData.lastname,
+      };
+      const response = await fetch({
+        url: `${API_BASE_URL}/investors/self`,
+        method: methodTypeEnum.put,
+        data: updatedData,
+      });
+      if (response?.data) {
+        console.log("Profile updated successfully!");
+      } else {
+        console.error("Failed to update profile");
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  };
+  
+
+  useEffect(() => {
+    getSelfData();
+  }, [getSelfData]);
+
+  return (
+    <div className={styles.container}>
+      <h4>PROFILE</h4>
+      <Row>
+        <Col lg={12} md={12}>
+          <Card className={styles.profileCard}>
+            <div>
+              <span className="profile-image pos-relative">
+                <Image
+                  className="br-5"
+                  alt=""
+                  src="/assets/profile.jpg"
+                  width={250}
+                  height={250}
+                />
+                <span className="bg-success text-white wd-1 ht-1 rounded-pill profile-online"></span>
+              </span>
+            </div>
+            <div className="my-md-auto mt-3 prof-details">
+              <h4 className="font-weight-semibold ms-md-4 ms-0 mb-1 pb-0">
+                {user?.firstname} {user?.lastname}
+              </h4>
+              <p className="tx-13 text-muted ms-md-4 ms-0 mb-2">
+                <span>
+                  <FaAddressCard className="me-2" />
+                  user.business.name
+                </span>
+              </p>
+              <p className="text-muted ms-md-4 ms-0 mb-2">
+                <span>
+                  <FaEnvelope className="me-2" />
+                </span>
+                <span className="font-weight-semibold me-2">Email:</span>
+                <span>{user?.email}</span>
+              </p>
+            </div>
+          </Card>
+          <span className="py-0">
+            <div className="profile-tab tab-menu-heading border-bottom-0">
+              <Tab.Container id="left-tabs-example" defaultActiveKey="About">
+                <Nav
+                  variant="pills"
+                  className="nav profile-tabs main-nav-line tabs-menu profile-nav-line bg-white mb-4 border-0 br-5 mb-0"
+                >
+                  <Nav.Item className="me-1">
+                    <Nav.Link className="mb-2 mt-2" eventKey="About">
+                      About
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item className="me-1">
+                    <Nav.Link className="mb-2 mt-2" eventKey="EditProfile">
+                      Edit Profile
+                    </Nav.Link>
+                  </Nav.Item>
+                </Nav>
+                <Tab.Content>
+                  <Tab.Pane eventKey="About">
+                    <p>This is the About tab content.</p>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="EditProfile">
+                    <div
+                      className="main-content-body tab-pane border-top-0"
+                      id="edit"
+                    >
+                      <Card>
+                        <CardBody className=" border-0">
+                          <div className="mb-4">Personal Information</div>
+                          <Form className="form-horizontal">
+                            <FormGroup className="form-group ">
+                              <Row className=" row-sm">
+                                <Col md={3}>
+                                  <Form.Label className="form-label">
+                                    First Name
+                                  </Form.Label>
+                                </Col>
+                                <Col md={9}>
+                                  <Form.Control
+                                    type="text"
+                                    className="form-control mb-4"
+                                    placeholder="First Name"
+                                    defaultValue={user?.firstname || ""}
+                                    id="firstname"
+                                    onChange={(e) => setFormData({ ...formData, firstname: e.target.value })}
+                                  />
+                                </Col>
+                              </Row>
+                            </FormGroup>
+
+                            <FormGroup className="form-group ">
+                              <Row className=" row-sm">
+                                <Col md={3}>
+                                  <Form.Label className="form-label">
+                                    Last Name
+                                  </Form.Label>
+                                </Col>
+                                <Col md={9}>
+                                  <Form.Control
+                                    type="text"
+                                    className="form-control mb-4"
+                                    placeholder="Last Name"
+                                    defaultValue={user?.lastname || ""}
+                                    id="lastname"
+                                  />
+                                </Col>
+                              </Row>
+                            </FormGroup>
+                            <Button variant="primary" onClick={saveSelfData}>Save</Button>
+                          </Form>
+                        </CardBody>
+                      </Card>
+                    </div>
+                  </Tab.Pane>
+                </Tab.Content>
+              </Tab.Container>
+            </div>
+          </span>
+        </Col>
+      </Row>
+    </div>
+  );
+};
+
+export default Profile;
+
+
+
+
+Resume  Expected In-Hand Salary: ₹7,00,000 Notice Period: 1 to 2 weeks Reasons for Job Switch: Career Growth: Seeking broader opportunities in web development beyond React components. Eager to enhance proficiency across various facets of web development to broaden skill set and contribute more comprehensively. Company Stability and Compensation: Transitioning from a startup environment where promised compensations are not being met timely. Seeking a stable work environment that honors commitments and provides financial security. This decision is driven by a commitment to professional growth and a desire for a stable, fulfilling work environment.

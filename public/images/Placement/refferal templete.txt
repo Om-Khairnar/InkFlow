@@ -1,0 +1,25 @@
+Referral template which you can follow :)
+
+Hi {Name of the person),
+
+I hope you are doing well. Recently, I came across an opening at {Company Name} for a (Role) position for (Year of Graduation} graduates or {Years of experience}
+
+The job ID for the position is {Job ID}.
+
+It would be great if you could provide me with a referral.
+
+Why me?
+
+-> {Mention all your achievements}
+
+-> {If applying for technical roles, mention your projects, coding profiles, and ranks}
+
+-> {Achievements should be listed in bullet points}
+
+-> {Achievements should be one-liners. Please don't explain everything in a paragraph}
+
+I have attached my resume for your review.
+
+Hope to hear from you soon.
+
+Thanks, (Your Name)

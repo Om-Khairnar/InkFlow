@@ -1,0 +1,27 @@
+https://console.cloud.google.com/apis/credentials?authuser=1&hl=en&organizationId=0&project=next-ecommerce-409213
+
+
+https://next-auth.js.org/
+
+gcloud auth login
+
+<-->
+
+we have created project on  the google counsole and after that
+
+we using the authintication from the nextAuth.js do add this   -->   yarn add next-auth
+
+after that we are going to add the mongo Db for backend here how you do this 
+
+-->  yarn add @auth/mongodb-adapter mongodb
+
+
+--> yarn add mongoose   
+
+
+dont know why we use but find the info 
+
+--> yarn add multiparty 
+
+this is used for image upload 
+its for parsing multiple form data parser 

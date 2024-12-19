@@ -1,0 +1,59 @@
+1)Typescript for new programmers - 
+
+https://devdocs.io/typescript/typescript-from-scratch
+
+2)React Typescript CheatSheet - 
+
+https://react-typescript-cheatsheet.netlify.app/
+
+
+3)create the project which has the together
+next.js , react , typescript 
+
+https://www.youtube.com/watch?v=pUNSHPyVryU 
+
+
+shortcut to create boiler plate react : rfce
+
+https://react.spruko.com/nowa-ts/preview/dashboard/dashboard1/
+
+
+npm install styled-components react-icons react-router-dom
+
+
+[important npm but have to get all information of this 
+
+npm run lint
+
+npm i prettier eslint-config-prettier eslint-plugin-prettier --save-dev
+
+npm run format:all]
+
+
+
+https://github.com/PitchMeTech/components
+[
+React bootstrap :
+
+https://react-bootstrap.netlify.app/docs/utilities/transitions/#horizontal
+
+]
+
+
+
+how to set from http to https 
+[
+https://github.com/Real-Dev-Squad/docs/tree/main/docs/dev/https-dev-url-cors
+]
+
+<--  this upper link will show you that how you can use the authentication in your application -->
+
+
+
+contact me form 
+[https://formsubmit.co/ ] --> try this you can do this without any backend 
+
+
+authentication we use for pitch me [
+https://jwt.io/introduction
+]
