@@ -22,22 +22,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={inter.className}
-      >
-        
+      <body className={inter.className}>
+      <AuthProvider>
         <ThemeContextProvider>
           <ThemeProvider>
-          <div className="container">
-            <div className="wrapper">
-              <Navbar />
-              {children}
-              <Footer />
+            <div className="container">
+              <div className="wrapper">
+                <Navbar />
+                {children}
+                <Footer />
+              </div>
             </div>
-          </div>
           </ThemeProvider>
         </ThemeContextProvider>
-        
+        </AuthProvider>
       </body>
     </html>
   );
