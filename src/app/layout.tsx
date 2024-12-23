@@ -6,7 +6,7 @@ import Footer from "@/components/footer/Footer";
 import { Inter } from "next/font/google";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/provider/ThemeProvider";
-import AuthProvider from "@/provider/AuthProvider";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +23,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <AuthProvider>
         <ThemeContextProvider>
           <ThemeProvider>
             <div className="container">
@@ -35,7 +34,6 @@ export default function RootLayout({
             </div>
           </ThemeProvider>
         </ThemeContextProvider>
-        </AuthProvider>
       </body>
     </html>
   );
