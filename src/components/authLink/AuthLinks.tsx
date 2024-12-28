@@ -2,7 +2,7 @@
 import Link from "next/link";
 import styles from "./authLinks.module.css";
 import { useState, useEffect } from "react";
-import { useAuth } from "@/components/authcontext/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 const AuthLinks = () => {
   const [open, setOpen] = useState(false);
   const { isAuthenticated, logout } = useAuth();

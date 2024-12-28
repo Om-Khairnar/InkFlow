@@ -3,7 +3,7 @@ import { useState , useEffect} from "react";
 import styles from "./loginPage.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/authcontext/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 interface LoginData {
   email: string; 
   password: string;
