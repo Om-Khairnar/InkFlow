@@ -1,9 +1,82 @@
 "use client";
+import Link from "next/link";
+import styles from "./authLinks.module.css";
+import { useState, useEffect } from "react";
+
+
+const AuthLinks = () => {
+  const [open, setOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  
+  const checkAuth = () => {
+    const token = localStorage.getItem("authToken");
+    setIsAuthenticated(!!token);
+  };
+  
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    setIsAuthenticated(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    // Clear the auth flag or token
+    localStorage.removeItem("authToken");
+    setIsAuthenticated(false);
+    alert("Logged out successfully.");
+  };
+
+  return (
+    <>
+      {isAuthenticated ? (
+        <>
+          <Link href="/write" className={styles.link}>
+            Write
+          </Link>
+          <span className={styles.link} onClick={handleLogout}>
+            Logout
+          </span>
+        </>
+      ) : (
+        <Link href="/login" className={styles.link}>
+          Login
+        </Link>
+      )}
+      <div className={styles.burger} onClick={() => setOpen(!open)}>
+        <div className={styles.line}></div>
+        <div className={styles.line}></div>
+        <div className={styles.line}></div>
+      </div>
+      {open && (
+        <div className={styles.responsiveMenu}>
+          <Link href="/">Homepage</Link>
+          <Link href="/">About</Link>
+          <Link href="/">Contact</Link>
+          {isAuthenticated ? (
+            <>
+              {" "}
+              <Link href="/write">Write</Link>
+              <span className={styles.link} onClick={handleLogout}>
+                Logout
+              </span>
+            </>
+          ) : (
+            <Link href="/login">Login</Link>
+          )}
+        </div>
+      )}
+    </>
+  );
+};
+
+export default AuthLinks;
+
+
+"use client";
 import { useState , useEffect} from "react";
 import styles from "./loginPage.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/authcontext/AuthContext";
+
 interface LoginData {
   email: string; 
   password: string;
@@ -13,12 +86,11 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const defaultData: LoginData = { email: "", password: "" };
 
 const LoginPage: React.FC = () => {
+
   const router = useRouter();
-  const { login } = useAuth();
-  
   const [data, setData] = useState<LoginData>(defaultData);
   const [error, setError] = useState<string | null>(null);
-  
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -42,7 +114,7 @@ const LoginPage: React.FC = () => {
       }
 
       const { token } = await response.json(); // Assuming your backend returns a token
-      login(token);
+      localStorage.setItem("authToken", token);
       router.push("/");
     } catch (error) {
       setError((error as Error).message); // Set error message if login fails
@@ -112,3 +184,6 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
+
+
+

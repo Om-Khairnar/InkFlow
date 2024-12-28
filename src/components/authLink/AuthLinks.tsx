@@ -1,29 +1,32 @@
 "use client";
 import Link from "next/link";
 import styles from "./authLinks.module.css";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { useAuth } from "@/components/authcontext/AuthContext";
 const AuthLinks = () => {
   const [open, setOpen] = useState(false);
-
-  const { status } = "notauthenticated"
+  const { isAuthenticated, logout } = useAuth();
+  
+  const handleLogout = () => {
+    logout(); // Use the logout function from AuthContext
+    alert("Logged out successfully.");
+  };
 
   return (
     <>
-      {status === "authenticated" ? (
-        <Link href="/login" className={styles.link}>
-          Login
-        </Link>
-      ) : (
+      {isAuthenticated ? (
         <>
           <Link href="/write" className={styles.link}>
             Write
           </Link>
-          {/* onClick={signOut} */}
-          <span className={styles.link} > 
+          <span className={styles.link} onClick={handleLogout}>
             Logout
           </span>
         </>
+      ) : (
+        <Link href="/login" className={styles.link}>
+          Login
+        </Link>
       )}
       <div className={styles.burger} onClick={() => setOpen(!open)}>
         <div className={styles.line}></div>
@@ -35,13 +38,16 @@ const AuthLinks = () => {
           <Link href="/">Homepage</Link>
           <Link href="/">About</Link>
           <Link href="/">Contact</Link>
-          {status === "notauthenticated" ? (
-            <Link href="/login">Login</Link>
-          ) : (
+          {isAuthenticated ? (
             <>
+              {" "}
               <Link href="/write">Write</Link>
-              <span className={styles.link}>Logout</span>
+              <span className={styles.link} onClick={handleLogout}>
+                Logout
+              </span>
             </>
+          ) : (
+            <Link href="/login">Login</Link>
           )}
         </div>
       )}

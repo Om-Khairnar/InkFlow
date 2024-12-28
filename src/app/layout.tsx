@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import localFont from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 import { Inter } from "next/font/google";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/provider/ThemeProvider";
-
+import { AuthProvider } from "@/components/authcontext/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <AuthProvider>
     <html lang="en">
       <body className={inter.className}>
         <ThemeContextProvider>
@@ -36,5 +36,6 @@ export default function RootLayout({
         </ThemeContextProvider>
       </body>
     </html>
+    </AuthProvider>
   );
 }
