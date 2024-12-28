@@ -1,0 +1,52 @@
+.profile-page {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .cover-image-container {
+    width: 100%;
+    height: 200px;
+    background-color: #ccc;
+  }
+  
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -50px;
+  }
+  
+  .avatar-container {
+    position: relative;
+  }
+  
+  .avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  
+  .profile-info {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .profile-info input {
+    margin: 10px 0;
+    padding: 8px;
+    width: 80%;
+    max-width: 300px;
+  }
+  
+  .actions button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .actions button:hover {
+    background-color: #0056b3;
+  }
+  

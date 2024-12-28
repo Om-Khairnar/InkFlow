@@ -3,11 +3,11 @@
 import Image from "next/image";
 import styles from "./writePage.module.css";
 import { useEffect, useState } from "react";
-// import "react-quill/dist/quill.bubble.css";
+import "react-quill/dist/quill.bubble.css";
 import { useRouter } from "next/navigation";
 
 
-// import ReactQuill from "react-quill";
+import ReactQuill from "react-quill";
 
 const WritePage = () => {
   const router = useRouter();

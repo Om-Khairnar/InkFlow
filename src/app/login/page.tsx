@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import styles from "./loginPage.module.css";
 import Link from "next/link";
@@ -43,6 +42,7 @@ const LoginPage: React.FC = () => {
       }
 
       const result = await response.json();
+      localStorage.setItem("authToken", result.token); 
       console.log("Login Successful:", result);
 
       // Redirect to the home page or dashboard
