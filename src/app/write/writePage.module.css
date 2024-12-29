@@ -9,15 +9,17 @@
   padding: 10px 20px;
   margin-left: 50px;
   width: max-content;
+  background-color: transparent;
 }
 
 .editor {
   display: flex;
   gap: 20px;
-  height: 700px;
+  flex-direction: column; /* Stacks the elements vertically */
+  height: auto;
   position: relative;
+  padding-top: 100px;
 }
-
 .button,
 .addButton {
   width: 36px;
@@ -73,3 +75,11 @@
   cursor: pointer;
   border-radius: 20px;
 }
+
+
+
+
+
+
+
+

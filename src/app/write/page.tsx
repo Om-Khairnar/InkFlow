@@ -5,38 +5,81 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import RichTextEditor from "../EditorContent/page";
+import axios from "axios";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const WritePage = () => {
   const router = useRouter();
   const { isAuthenticated } = useAuth();
-  
+
+  if(!isAuthenticated){
+    router.push("/login");
+    return;
+  }
 
   const [open, setOpen] = useState(false);
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [blogImage, setBlogImage] = useState<File | null>(null);
-  const [value, setValue] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [catSlug, setCatSlug] = useState<string>("");
   const [content, setContent] = useState<string>("");
-
-
-  // Handle Cover Image Change
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  
   const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setCoverImage(e.target.files[0]);
     }
   };
 
-  // Handle Blog Image Change
+  
   const handleBlogImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setBlogImage(e.target.files[0]);
     }
   };
 
+  const handleSubmit = async () => {
+    if (!title || !content || !coverImage) {
+      setError("Title, content, and cover image are required");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", content); // Pass the content as the description
+    formData.append("type", catSlug); // Category slug
+
+    if (coverImage) {
+      formData.append("blogcoverImage", coverImage);
+    }
+    if (blogImage) {
+      formData.append("blogImage", blogImage);
+    }
+
+    try {
+      // Assuming the backend API endpoint is /api/posts
+      const response = await axios.post(`${API_BASE_URL}/blogs`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
+      alert("Blog post created successfully!");
+      router.push("/"); // Redirect to homepage after successful creation
+    } catch (err) {
+      setError("Failed to create the blog post. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleContentChange = (newContent: string) => {
-    setContent(newContent);  // Update content state when editor changes
+    setContent(newContent); // Update content state when editor changes
   };
 
   return (
@@ -138,11 +181,15 @@ const WritePage = () => {
             </div>
           </div>
         )}
-
+        <div className={styles.editor}>
         <RichTextEditor content={content} onChange={handleContentChange} />
+        </div>
       </div>
-
-      <button className={styles.publish}>Publish</button>
+   
+      {error && <p className={styles.error}>{error}</p>}
+      <button className={styles.publish} onClick={handleSubmit} disabled={loading}>
+        {loading ? "Publishing..." : "Publish"}
+      </button>
     </div>
   );
 };
