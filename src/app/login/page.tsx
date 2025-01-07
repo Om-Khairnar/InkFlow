@@ -45,7 +45,7 @@ const LoginPage: React.FC = () => {
       login(token);
       router.push("/");
     } catch (error) {
-      setError((error as Error).message); // Set error message if login fails
+      setError((error as Error).message); 
     }
   };
 
