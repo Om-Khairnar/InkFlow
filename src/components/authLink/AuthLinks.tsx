@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import styles from "./authLinks.module.css";
+import styles from "./authlinks.module.css";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 const AuthLinks = () => {
