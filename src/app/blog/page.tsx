@@ -1,15 +1,23 @@
 import CardList from "@/components/cardList/CardList"
 import styles from "./blogPage.module.css"
 import Menu from "@/components/Menu/Menu"
+import { Metadata } from 'next'
 
-interface BlogPageProps {
-  searchParams: {
-    page?: string;
-    cat?: string;
-  }
+interface SearchParams {
+  page?: string
+  cat?: string
 }
 
-const BlogPage = ({ searchParams }: BlogPageProps) => {
+export const metadata: Metadata = {
+  title: 'Blog Page',
+  description: 'Blog posts and articles',
+}
+
+export default async function BlogPage({
+  searchParams
+}: {
+  searchParams: SearchParams
+}) {
   const page = parseInt(searchParams.page ?? "1");
   const cat = searchParams.cat ?? "All";
 
@@ -22,6 +30,4 @@ const BlogPage = ({ searchParams }: BlogPageProps) => {
       </div>
     </div>
   );
-};
-
-export default BlogPage;
+}
