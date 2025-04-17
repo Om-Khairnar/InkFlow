@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "./writePage.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import RichTextEditor from "../EditorContent/page";
@@ -13,11 +13,7 @@ const WritePage = () => {
   const router = useRouter();
   const { isAuthenticated } = useAuth();
 
-  if(!isAuthenticated){
-    router.push("/login");
-    return;
-  }
-
+  // All state declarations before any conditional logic
   const [open, setOpen] = useState(false);
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [blogImage, setBlogImage] = useState<File | null>(null);
@@ -26,6 +22,18 @@ const WritePage = () => {
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Immediate authentication check and redirect
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.replace("/login"); // Using replace instead of push for better navigation history
+    }
+  }, [isAuthenticated, router]);
+
+  // Return early if not authenticated
+  if (typeof window !== 'undefined' && !isAuthenticated) {
+    return <div className={styles.container}>Redirecting to login...</div>;
+  }
   
   const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {

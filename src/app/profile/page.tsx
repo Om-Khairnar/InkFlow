@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./profilePage.module.css";
 import Link from "next/link";
+import Image from "next/image";
 
 const LoginPage: React.FC = () => {
     const [user, setUser] = useState({
@@ -31,7 +32,7 @@ const LoginPage: React.FC = () => {
     fetchUserData();
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUpdatedUser((prevState) => ({
       ...prevState,
@@ -54,15 +55,24 @@ const LoginPage: React.FC = () => {
     <div className={styles.container}>
       <div className="profile-page">
         <div className="cover-image-container">
-          <img src={user.coverImage || "default-cover-image.jpg"} alt="Cover" />
+          <Image
+            src={user.coverImage || "/default-cover-image.jpg"}
+            alt="Cover"
+            width={1200}
+            height={300}
+            style={{ objectFit: 'cover' }}
+          />
         </div>
 
         <div className="profile-container">
           <div className="avatar-container">
-            <img
-              src={user.avatar || "default-avatar.jpg"}
+            <Image
+              src={user.avatar || "/default-avatar.jpg"}
               alt="Avatar"
+              width={150}
+              height={150}
               className="avatar"
+              style={{ objectFit: 'cover', borderRadius: '50%' }}
             />
             {isEditing && (
               <input
