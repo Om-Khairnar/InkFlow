@@ -4,7 +4,7 @@ import styles from "./writePage.module.css";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import RichTextEditor from "../EditorContent/page";
+import RichTextEditor from "@/components/editor/RichTextEditor";
 import axios from "axios";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;

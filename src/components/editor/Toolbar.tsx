@@ -11,8 +11,7 @@ import {
   FaCode,
   FaHighlighter,
 } from "react-icons/fa"; 
-import { Toggle } from "../ui/toggle";
-
+import { Toggle } from "@/app/ui/toggle";
 import { Editor } from '@tiptap/react';
 
 interface ToolBarProps {
