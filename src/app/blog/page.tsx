@@ -2,9 +2,16 @@ import CardList from "@/components/cardList/CardList"
 import styles from "./blogPage.module.css"
 import Menu from "@/components/Menu/Menu"
 
-const BlogPage = ({ searchParams }) => {
-  const page = parseInt(searchParams.page) || 1;
-  const { cat } = searchParams;
+interface BlogPageProps {
+  searchParams: {
+    page?: string;
+    cat?: string;
+  }
+}
+
+const BlogPage = ({ searchParams }: BlogPageProps) => {
+  const page = parseInt(searchParams.page ?? "1");
+  const cat = searchParams.cat ?? "All";
 
   return (
     <div className={styles.container}>
