@@ -13,61 +13,72 @@ import {
 } from "react-icons/fa"; 
 import { Toggle } from "../ui/toggle";
 
-export default function ToolBar({ editor }) {
+import { Editor } from '@tiptap/react';
+
+interface ToolBarProps {
+  editor: Editor | null;
+}
+
+interface ToolbarOption {
+  icon: React.ReactNode;
+  onClick: () => void;
+  pressed: boolean;
+}
+
+export default function ToolBar({ editor }: ToolBarProps) {
   if (!editor) return null;
 
-  const Options = [
+  const Options: ToolbarOption[] = [
     {
       icon: <FaBold className="size-4" />,
-      onClick: () => editor.chain().focus().toggleBold().run(),
-      preesed: editor.isActive("bold"),
+      onClick: () => editor?.chain().focus().toggleBold().run(),
+      pressed: editor?.isActive("bold") || false,
     },
     {
       icon: <FaItalic className="size-4" />,
-      onClick: () => editor.chain().focus().toggleItalic().run(),
-      preesed: editor.isActive("italic"),
+      onClick: () => editor?.chain().focus().toggleItalic().run(),
+      pressed: editor?.isActive("italic") || false,
     },
     {
       icon: <FaStrikethrough className="size-4" />,
-      onClick: () => editor.chain().focus().toggleStrike().run(),
-      preesed: editor.isActive("strike"),
+      onClick: () => editor?.chain().focus().toggleStrike().run(),
+      pressed: editor?.isActive("strike") || false,
     },
     {
       icon: <FaAlignLeft className="size-4" />,
-      onClick: () => editor.chain().focus().setTextAlign("left").run(),
-      preesed: editor.isActive({ textAlign: "left" }),
+      onClick: () => editor?.chain().focus().setTextAlign("left").run(),
+      pressed: editor?.isActive({ textAlign: "left" }) || false,
     },
     {
       icon: <FaAlignCenter className="size-4" />,
-      onClick: () => editor.chain().focus().setTextAlign("center").run(),
-      preesed: editor.isActive({ textAlign: "center" }),
+      onClick: () => editor?.chain().focus().setTextAlign("center").run(),
+      pressed: editor?.isActive({ textAlign: "center" }) || false,
     },
     {
       icon: <FaAlignRight className="size-4" />,
-      onClick: () => editor.chain().focus().setTextAlign("right").run(),
-      preesed: editor.isActive({ textAlign: "right" }),
+      onClick: () => editor?.chain().focus().setTextAlign("right").run(),
+      pressed: editor?.isActive({ textAlign: "right" }) || false,
     },
     {
       icon: <FaList className="size-4" />,
-      onClick: () => editor.chain().focus().toggleBulletList().run(),
-      preesed: editor.isActive("bulletList"),
+      onClick: () => editor?.chain().focus().toggleBulletList().run(),
+      pressed: editor?.isActive("bulletList") || false,
     },
     {
       icon: <FaListOl className="size-4" />,
-      onClick: () => editor.chain().focus().toggleOrderedList().run(),
-      preesed: editor.isActive("orderedList"),
+      onClick: () => editor?.chain().focus().toggleOrderedList().run(),
+      pressed: editor?.isActive("orderedList") || false,
     },
     {
       icon: <FaCode className="size-4" />,
-      onClick: () => editor.chain().focus().toggleCodeBlock().run(),
-      preesed: editor.isActive("code"),
+      onClick: () => editor?.chain().focus().toggleCodeBlock().run(),
+      pressed: editor?.isActive("code") || false,
     },
     {
       icon: <FaHighlighter className="size-4" />,
-      onClick: () => editor.chain().focus().toggleHighlight().run(),
-      preesed: editor.isActive("highlight"),
-    },
-   
+      onClick: () => editor?.chain().focus().toggleHighlight().run(),
+      pressed: editor?.isActive("highlight") || false,
+    }
   ];
 
   return (

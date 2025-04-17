@@ -8,7 +8,12 @@ import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 
 
-export default function RichTextEditor({ content, onChange }) {
+interface RichTextEditorProps {
+  content: string;
+  onChange: (content: string) => void;
+}
+
+export default function RichTextEditor({ content, onChange }: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure(),
